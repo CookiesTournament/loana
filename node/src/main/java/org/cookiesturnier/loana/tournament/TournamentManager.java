@@ -56,6 +56,10 @@ public class TournamentManager {
             System.out.println(" ");
     }
 
+    private void initDatabase() {
+
+    }
+
     private void initSpringFramework() {
         SpringApplication.run(NodeApplication.class);
     }
