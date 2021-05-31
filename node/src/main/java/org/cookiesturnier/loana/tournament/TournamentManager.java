@@ -6,6 +6,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.cookiesturnier.loana.NodeApplication;
+import org.cookiesturnier.loana.tournament.config.ConfigLoader;
+import org.cookiesturnier.loana.tournament.database.Database;
+import org.cookiesturnier.loana.tournament.database.DatabaseAdapter;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -23,10 +26,17 @@ public class TournamentManager {
     private static final String VERSION = "v1.0";
     private Logger logger;
 
+    private ConfigLoader configLoader;
+    private Database database;
+    private DatabaseAdapter databaseAdapter;
+
     public TournamentManager() {
         instance = this;
         this.setupLogger();
         this.printHeader();
+
+        this.loadConfig();
+        this.initDatabase();
 
         //new Thread(this::initSpringFramework).start();
     }
@@ -56,8 +66,19 @@ public class TournamentManager {
             System.out.println(" ");
     }
 
-    private void initDatabase() {
+    private void loadConfig() {
+        this.configLoader = new ConfigLoader();
+    }
 
+    private void initDatabase() {
+        this.logger.log(Level.DEBUG, "Initializing database..");
+        this.database = new Database(this.configLoader.getConfig().getDatabaseHost(),
+                this.configLoader.getConfig().getDatabaseUser(),
+                this.configLoader.getConfig().getDatabasePassword(),
+                this.configLoader.getConfig().getDatabaseName(),
+                this.configLoader.getConfig().getDatabasePort());
+        this.database.connect();
+        this.databaseAdapter = new DatabaseAdapter(this.database);
     }
 
     private void initSpringFramework() {
