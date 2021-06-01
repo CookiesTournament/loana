@@ -3,14 +3,18 @@ package org.cookiesturnier.loana.tournament.utils;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import org.apache.log4j.Level;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 import org.cookiesturnier.loana.tournament.database.objects.Key;
 import org.cookiesturnier.loana.tournament.objects.Player;
 import org.cookiesturnier.loana.tournament.objects.Team;
+import org.shanerx.mojang.Mojang;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,10 +32,13 @@ public class TeamManager {
 
     private final List<Team> registeredTeams;
     private final List<Player> loadedPlayers;
+    private final Mojang mojangAPI;
 
     public TeamManager() {
         this.registeredTeams = Lists.newCopyOnWriteArrayList();
         this.loadedPlayers = Lists.newCopyOnWriteArrayList();
+
+        this.mojangAPI = new Mojang().connect();
 
         try {
             TournamentManager.getInstance().getLogger().log(Level.INFO, "Loading data from database..");
@@ -111,6 +118,15 @@ public class TeamManager {
         }
 
         return uuid;
+    }
+
+    public UUID getUUIDFromMinecraftName(String name) {
+        if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN) {
+            TournamentManager.getInstance().getLogger().log(Level.ERROR, "The Mojang API is not available right now.");
+            return null;
+        }
+
+        return UUID.fromString(this.mojangAPI.getUUIDOfUsername(name));
     }
 
 }

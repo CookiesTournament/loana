@@ -8,7 +8,6 @@ import org.cookiesturnier.loana.tournament.database.objects.Key;
 import org.cookiesturnier.loana.tournament.enums.IngameTeamColor;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @Getter @Setter
-public class Team implements Serializable {
+public class Team {
 
     private final UUID uuid;
     private final String teamName;

@@ -6,6 +6,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.cookiesturnier.loana.NodeApplication;
+import org.cookiesturnier.loana.tournament.api.TournamentAPI;
 import org.cookiesturnier.loana.tournament.config.ConfigLoader;
 import org.cookiesturnier.loana.tournament.database.Database;
 import org.cookiesturnier.loana.tournament.database.DatabaseAdapter;
@@ -34,6 +35,8 @@ public class TournamentManager {
     private DatabaseAdapter databaseAdapter;
     private final TeamManager teamManager;
 
+    private final TournamentAPI api;
+
     public TournamentManager() {
         instance = this;
         this.setupLogger();
@@ -43,6 +46,7 @@ public class TournamentManager {
         this.initDatabase();
 
         this.teamManager = new TeamManager();
+        this.api = new TournamentAPI();
 
         //new Thread(this::initSpringFramework).start();
     }

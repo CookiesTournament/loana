@@ -5,7 +5,6 @@ import org.cookiesturnier.loana.tournament.TournamentManager;
 import org.cookiesturnier.loana.tournament.database.objects.Insert;
 import org.cookiesturnier.loana.tournament.database.objects.Key;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -16,7 +15,7 @@ import java.util.UUID;
  */
 
 @Getter
-public class Player implements Serializable {
+public class Player {
 
     private final UUID uuid;
     private final String customName;
