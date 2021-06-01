@@ -1,5 +1,6 @@
 package org.cookiesturnier.loana.tournament;
 
+import com.google.common.base.Strings;
 import lombok.Getter;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
@@ -71,9 +72,7 @@ public class TournamentManager {
                 "        \\/                   \\/       \\/     \\/                             \\/        \\/       ");
 
         System.out.println("Cookies-Turnier by VoxCrafter_LP & Lezurex (" + VERSION + ")");
-
-        for (int i = 0; i<3; i++)
-            System.out.println(" ");
+        System.out.println(Strings.repeat(" ", 3));
     }
 
     private void loadConfig() {

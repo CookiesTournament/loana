@@ -29,7 +29,7 @@ public class TournamentAPI {
      * Gets a list containing all the registered teams
      * @return List containing all the registered teams
      */
-    public List<Team> getAvailableTeams() {
+    public List<Team> getRegisteredTeams() {
         return teamManager.getRegisteredTeams();
     }
 
@@ -37,7 +37,7 @@ public class TournamentAPI {
      * Gets a list containing all the registered players
      * @return List containing all the registered players
      */
-    public List<Player> getAvailablePlayers() {
+    public List<Player> getRegisteredPlayers() {
         return teamManager.getLoadedPlayers();
     }
 
