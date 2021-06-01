@@ -3,6 +3,9 @@ package org.cookiesturnier.loana.tournament.api;
 import com.google.common.collect.Lists;
 import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
+import org.cookiesturnier.loana.tournament.api.exceptions.AlreadyRegisteredException;
+import org.cookiesturnier.loana.tournament.api.exceptions.MojangAPIException;
+import org.cookiesturnier.loana.tournament.api.exceptions.UnknownPlayerException;
 import org.cookiesturnier.loana.tournament.objects.Player;
 import org.cookiesturnier.loana.tournament.objects.Team;
 import org.cookiesturnier.loana.tournament.utils.TeamManager;
@@ -47,18 +50,20 @@ public class TournamentAPI {
      * @param discordTag Discord tag of the player
      * @return If the registration has been successful
      */
-    public boolean registerPlayer(String ingameName, String discordTag) {
+    public Player registerPlayer(String ingameName, String discordTag) throws MojangAPIException, AlreadyRegisteredException, UnknownPlayerException {
         final UUID uuid = teamManager.getUUIDFromMinecraftName(ingameName);
 
-        if(uuid == null) return false;
-        if(teamManager.getLoadedPlayers().stream().anyMatch(player -> player.getUuid().equals(uuid))) return false;
+        if(uuid == null)
+            throw new UnknownPlayerException("The player with the name '" + ingameName + "' couldn't be found!");
+
+        if(teamManager.getLoadedPlayers().stream().anyMatch(player -> player.getUuid().equals(uuid)))
+            throw new AlreadyRegisteredException("This player is already registered!");
 
         try {
-            teamManager.registerPlayer(uuid, ingameName, discordTag);
-            return true;
+            return teamManager.registerPlayer(uuid, ingameName, discordTag);
         } catch (Exception exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the player.", exception);
-            return false;
+            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the player", exception);
+            return null;
         }
     }
 
@@ -68,30 +73,28 @@ public class TournamentAPI {
      * @param memberNames List containing the members' Minecraft names
      * @return If the registration has been successful
      */
-    public boolean registerTeam(String teamName, List<String> memberNames) {
+    public Team registerTeam(String teamName, List<String> memberNames) throws UnknownPlayerException {
         final List<Player> members = Lists.newCopyOnWriteArrayList();
 
-        memberNames.forEach(memberName -> {
+        for(String memberName : memberNames) {
             final Player player = this.teamManager.getLoadedPlayers().stream()
                     .filter(player1 -> player1.getCustomName().equals(memberName))
                     .findAny().orElse(null);
 
-            if(player == null) {
-                TournamentManager.getInstance().getLogger().log(Level.ERROR, "Couldn't find a player with the name " + memberName + "!");
-                return;
-            }
+            if(player == null)
+                throw new UnknownPlayerException("Couldn't find a player with the name " + memberName + "!");
 
             members.add(player);
-        });
+        }
 
-        if(members.isEmpty()) return false;
+        if(members.isEmpty())
+            throw new NullPointerException("No members found?");
 
         try {
-            teamManager.registerTeam(teamName, members);
-            return true;
+            return teamManager.registerTeam(teamName, members);
         } catch (Exception exception) {
             TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the team.", exception);
-            return false;
+            return null;
         }
     }
 

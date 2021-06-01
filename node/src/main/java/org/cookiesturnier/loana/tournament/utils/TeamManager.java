@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.apache.log4j.Level;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.cookiesturnier.loana.tournament.TournamentManager;
+import org.cookiesturnier.loana.tournament.api.exceptions.MojangAPIException;
 import org.cookiesturnier.loana.tournament.database.objects.Key;
 import org.cookiesturnier.loana.tournament.objects.Player;
 import org.cookiesturnier.loana.tournament.objects.Team;
@@ -120,11 +121,9 @@ public class TeamManager {
         return uuid;
     }
 
-    public UUID getUUIDFromMinecraftName(String name) {
-        if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "The Mojang API is not available right now.");
-            return null;
-        }
+    public UUID getUUIDFromMinecraftName(String name) throws MojangAPIException {
+        if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN)
+            throw new MojangAPIException("The Mojang API is not available right now.");
 
         return UUID.fromString(this.mojangAPI.getUUIDOfUsername(name));
     }
