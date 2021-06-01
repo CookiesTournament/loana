@@ -9,6 +9,9 @@ import org.cookiesturnier.loana.NodeApplication;
 import org.cookiesturnier.loana.tournament.config.ConfigLoader;
 import org.cookiesturnier.loana.tournament.database.Database;
 import org.cookiesturnier.loana.tournament.database.DatabaseAdapter;
+import org.cookiesturnier.loana.tournament.database.enums.RowType;
+import org.cookiesturnier.loana.tournament.database.objects.Row;
+import org.cookiesturnier.loana.tournament.utils.TeamManager;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -29,6 +32,7 @@ public class TournamentManager {
     private ConfigLoader configLoader;
     private Database database;
     private DatabaseAdapter databaseAdapter;
+    private final TeamManager teamManager;
 
     public TournamentManager() {
         instance = this;
@@ -37,6 +41,8 @@ public class TournamentManager {
 
         this.loadConfig();
         this.initDatabase();
+
+        this.teamManager = new TeamManager();
 
         //new Thread(this::initSpringFramework).start();
     }
@@ -79,6 +85,17 @@ public class TournamentManager {
                 this.configLoader.getConfig().getDatabasePort());
         this.database.connect();
         this.databaseAdapter = new DatabaseAdapter(this.database);
+
+        //CREATE TABLES
+
+        this.databaseAdapter.createTable("teams",
+                new Row("uuid", RowType.VARCHAR),
+                new Row("name", RowType.VARCHAR),
+                new Row("members", RowType.TEXT));
+        this.databaseAdapter.createTable("players",
+                new Row("uuid", RowType.VARCHAR),
+                new Row("customName", RowType.VARCHAR),
+                new Row("discordTag", RowType.VARCHAR));
     }
 
     private void initSpringFramework() {
