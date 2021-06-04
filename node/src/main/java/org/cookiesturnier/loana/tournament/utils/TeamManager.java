@@ -65,8 +65,8 @@ public class TeamManager {
         return team;
     }
 
-    public Player registerPlayer(UUID uuid, String customName, String discordTag) {
-        final Player player = new Player(uuid, customName, discordTag);
+    public Player registerPlayer(UUID uuid, String customName, String discordId) {
+        final Player player = new Player(uuid, customName, discordId);
         player.saveToDatabase();
         this.loadedPlayers.add(player);
         return player;
@@ -79,7 +79,7 @@ public class TeamManager {
             final Player player = new Player(
                     UUID.fromString(resultSet.getString("uuid")),
                     resultSet.getString("customName"),
-                    resultSet.getString("discordTag"));
+                    resultSet.getString("discordId"));
 
             this.loadedPlayers.add(player);
             TournamentManager.getInstance().getLogger().log(Level.DEBUG, "Player " + player.getUuid() + " has been loaded successfully.");
