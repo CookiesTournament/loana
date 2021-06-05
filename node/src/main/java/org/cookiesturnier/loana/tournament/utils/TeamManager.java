@@ -55,7 +55,7 @@ public class TeamManager {
         try {
             team.saveToDatabase();
         } catch (IOException | SQLException exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while saving the team to the database.", exception);
+            TournamentManager.getInstance().getLogger().log(Level.INFO, "An error occurred while saving the team to the database.", exception);
         }
         this.registeredTeams.add(team);
 
@@ -79,7 +79,7 @@ public class TeamManager {
                     resultSet.getString("discordId"));
 
             this.loadedPlayers.add(player);
-            TournamentManager.getInstance().getLogger().log(Level.DEBUG, "Player " + player.getUuid() + " has been loaded successfully.");
+            TournamentManager.getInstance().getLogger().log(Level.INFO, "Player " + player.getUuid() + " has been loaded successfully.");
         }
     }
 
@@ -102,7 +102,7 @@ public class TeamManager {
 
             final Team team = new Team(UUID.fromString(resultSet.getString("uuid")), resultSet.getString("name"), members);
             this.registeredTeams.add(team);
-            TournamentManager.getInstance().getLogger().log(Level.DEBUG, "Team " + team.getUuid() + " has been loaded successfully.");
+            TournamentManager.getInstance().getLogger().log(Level.INFO, "Team " + team.getUuid() + " has been loaded successfully.");
         }
     }
 
