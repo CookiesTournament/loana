@@ -50,7 +50,11 @@ public class TournamentAPI {
      * @param discordId Discord tag of the player
      * @return If the registration has been successful
      */
-    public Player registerPlayer(String ingameName, String discordId) throws MojangAPIException, AlreadyRegisteredException, UnknownPlayerException {
+
+    public Player registerPlayer(String ingameName, String discordTag) throws MojangAPIException, AlreadyRegisteredException, UnknownPlayerException, IllegalArgumentException {
+        if(!this.isValidUsername(ingameName))
+            throw new IllegalArgumentException("Invalid username!");
+
         final UUID uuid = teamManager.getUUIDFromMinecraftName(ingameName);
 
         if(uuid == null)
@@ -96,6 +100,15 @@ public class TournamentAPI {
             TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the team.", exception);
             return null;
         }
+    }
+
+    /**
+     * Checks if the username is a valid Minecraft username
+     * @param username Username that should be checked
+     * @return If the username is a valid Minecraft username
+     */
+    public boolean isValidUsername(String username) {
+        return username.matches("^[\\w]{3,16}$");
     }
 
 }
