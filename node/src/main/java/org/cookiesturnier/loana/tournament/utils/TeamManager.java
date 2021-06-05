@@ -125,7 +125,12 @@ public class TeamManager {
         if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN)
             throw new MojangAPIException("The Mojang API is not available right now.");
 
-        return UUID.fromString(this.mojangAPI.getUUIDOfUsername(name));
+        return this.formatFromInput(this.mojangAPI.getUUIDOfUsername(name));
+    }
+
+    private UUID formatFromInput(String uuid) {
+        return UUID.fromString(uuid.length() == 32 ? uuid.substring(0, 8) + '-' + uuid.substring(8, 12) + '-' + uuid.substring(12, 16)
+                + '-' + uuid.substring(16, 20) + '-' + uuid.substring(20) : uuid);
     }
 
 }
