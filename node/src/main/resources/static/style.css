@@ -1,20 +1,119 @@
-:root {
+:root, * {
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    color: white;
+    background-color: #0D1117;
+}
+
+a {
+    color: #344B9D;
+    transition: .5s;
+}
+
+a:hover {
+    color: #2061e3;
+    transition: .5s;
+}
+
+body {
+    /*background-color: #C8E8E8;*/
+    background-image: url("img/industry_middle.png");
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    margin-top: 0;
 }
 
 ol > li {
     margin-top: 1rem;
 }
 
+nav ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.card {
+    box-shadow: 0 0 2rem rgb(0, 0, 0);
+    border-radius: 10px;
+    height: 70%;
+    padding: 2rem;
+    display: flex;
+}
+
+.card nav {
+    display: block;
+    margin-right: 2rem;
+}
+
+.card nav ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    margin: 0;
+}
+
+.card nav ul li i {
+    font-size: 2rem;
+}
+
+.card nav ul li a {
+    display: flex;
+    color: #344B9D;
+    text-decoration: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: .5s;
+}
+
+.card nav ul li a:hover {
+    color: #2061e3;
+    transition: .5s;
+    transform: scale(1.05) rotate(5deg);
+}
+
+.card nav i, .card nav span {
+    color: inherit;
+}
+
+.card .content {
+    flex-grow: 1;
+}
+
 input {
     outline: none;
     border: none;
-    border-bottom: solid gray 2px;
+    padding: .8rem;
+    background-color: #212434;
+    border-radius: 10px;
+    transition: .5s;
+}
+
+input:focus {
+    transition: .5s;
+    background-color: #171924;
 }
 
 #reg-form {
     display: grid;
-    width: auto;
+    width: min-content;
+    grid-gap: .5rem;
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(4, auto);
+}
+
+#reg-form label {
+    width: 100%;
+    display: flex;
+    align-items: center;
 }

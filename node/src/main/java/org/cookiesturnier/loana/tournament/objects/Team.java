@@ -50,7 +50,7 @@ public class Team {
         final String[] memberUUIDArray = new String[2];
 
         final AtomicInteger integer = new AtomicInteger(-1);
-        this.members.forEach(player -> memberUUIDArray[integer.getAndIncrement()] = player.getUuid().toString());
+        this.members.forEach(player -> memberUUIDArray[integer.incrementAndGet()] = player.getUuid().toString());
 
         inserts[0] = new Insert("uuid", this.uuid.toString());
         inserts[1] = new Insert("name", this.teamName);

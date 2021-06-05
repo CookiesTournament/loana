@@ -67,8 +67,8 @@ public class TeamManager {
 
     public Player registerPlayer(UUID uuid, String customName, String discordId) {
         final Player player = new Player(uuid, customName, discordId);
-        player.saveToDatabase();
-        this.loadedPlayers.add(player);
+//        player.saveToDatabase();
+//        this.loadedPlayers.add(player);
         return player;
     }
 

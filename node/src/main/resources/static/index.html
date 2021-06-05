@@ -4,25 +4,101 @@
     <meta charset="UTF-8">
     <title>Cookies Turnier</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+
+
 </head>
 <body>
-<h1 class="">Cookies Turnier - Registration</h1>
-<p>Willkommen zur Registration für das nächste Cookies Turnier, welches in 2 Wochen (Samstag, 15. Juni) starten wird!
-    <br/>Diese Seite ist Teil des neuen Verwaltungssystemes, welches derzeit aber noch in Entwicklung ist. Damit soll
-    eine flüssigere und schnellere Durchführung des Turnieres ermöglicht werden.
-    <br/>Wir bitten jeden Teilnehmer, vor der Registrierung die <a href="regeln.html">Turnierregeln</a> durchzulesen und
-    diese zu akzeptieren.
-</p>
 
-<form action="register/" method="POST" id="reg-form">
-    <label for="reg-teamName">Teamname</label>
-    <input id="reg-teamName" type="text" name="teamName">
+<div class="card">
+    <nav>
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="fas fa-pen"></i>
+                    <span>Registration</span>
+                </a>
+            </li>
+            <li>
+                <a href="regeln.html">
+                    <i class="fas fa-book"></i>
+                    <span>Turnierregeln</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.gg/Ace95gMFy7">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="content">
+        <h1 class="">Cookies Turnier - Registration</h1>
+        <p>Willkommen zur Registration für das nächste Cookies Turnier, welches in 2 Wochen (Samstag, 15. Juni) starten
+            wird!
+            <br/>Diese Seite ist Teil des neuen Verwaltungssystemes, welches derzeit aber noch in Entwicklung ist. Damit
+            soll
+            eine flüssigere und schnellere Durchführung des Turnieres ermöglicht werden.
+            <br/>Wir bitten jeden Teilnehmer, vor der Registrierung die <a href="regeln.html">Turnierregeln</a>
+            durchzulesen und
+            diese zu akzeptieren.
+        </p>
 
-    <label for="reg-player1">1. Spieler</label>
-    <input id="reg-player1" type="text" name="teamName">
+        <form action="register/" method="POST">
+            <div id="reg-form">
+                <label for="reg-teamName"><span>Teamname</span></label>
+                <input id="reg-teamName" type="text" name="teamName" required>
 
-    <label for="reg-player2">2. Spieler</label>
-    <input id="reg-player2" type="text" name="teamName">
-</form>
+                <label for="reg-player1"><span>1. Spieler</span></label>
+                <input id="reg-player1" type="text" name="player1" required>
+
+                <label for="reg-player2"><span>2. Spieler</span></label>
+                <input id="reg-player2" type="text" name="player2" required>
+            </div>
+            <br/>
+            <label>
+                <input type="checkbox" name="rules" required>
+                Ich habe die <a href="regeln.html" target="_blank">Turnierregeln</a> gelesen und akzeptiere diese.
+            </label><br/>
+            <p id="reg-error"> </p>
+            <input type="submit" value="Absenden">
+        </form>
+    </div>
+</div>
+
+<script defer>
+    function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [];
+        location.search
+            .substr(1)
+            .split("&")
+            .forEach(function (item) {
+                tmp = item.split("=");
+                if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
+    }
+
+    let error = document.getElementById("reg-error");
+    error.style.color = "red";
+    switch (findGetParameter("status")) {
+        case "0":
+            error.style.color = "green";
+            error.innerHTML = "Dein Team wurde erfolgreich registriert!"
+            break;
+        case "1":
+            error.innerHTML = "Es ist ein interner Fehler aufgetreten! Versuche es später noch einmal!";
+            break;
+        case "2":
+            error.innerHTML = "Mindestens ein Spieler ist schon registriert!";
+            break;
+        case "3":
+            error.innerHTML = "Mindestens ein Spielername ist ungültig!";
+    }
+</script>
 </body>
 </html>
