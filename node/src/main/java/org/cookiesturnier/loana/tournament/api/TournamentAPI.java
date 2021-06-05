@@ -47,9 +47,10 @@ public class TournamentAPI {
     /**
      * Registers a player as a tournament member
      * @param ingameName Minecraft name of the player
-     * @param discordTag Discord tag of the player
+     * @param discordId Discord tag of the player
      * @return If the registration has been successful
      */
+
     public Player registerPlayer(String ingameName, String discordTag) throws MojangAPIException, AlreadyRegisteredException, UnknownPlayerException, IllegalArgumentException {
         if(!this.isValidUsername(ingameName))
             throw new IllegalArgumentException("Invalid username!");
@@ -63,7 +64,7 @@ public class TournamentAPI {
             throw new AlreadyRegisteredException("This player is already registered!");
 
         try {
-            return teamManager.registerPlayer(uuid, ingameName, discordTag);
+            return teamManager.registerPlayer(uuid, ingameName, discordId);
         } catch (Exception exception) {
             TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the player", exception);
             return null;

@@ -19,12 +19,12 @@ public class Player {
 
     private final UUID uuid;
     private final String customName;
-    private final String discordTag;
+    private final String discordId;
 
-    public Player(UUID uuid, String customName, String discordTag) {
+    public Player(UUID uuid, String customName, String discordId) {
         this.uuid = uuid;
         this.customName = customName;
-        this.discordTag = discordTag;
+        this.discordId = discordId;
     }
 
     //TODO rework
@@ -33,7 +33,7 @@ public class Player {
 
         inserts[0] = new Insert("uuid", this.uuid.toString());
         inserts[1] = new Insert("customName", this.customName);
-        inserts[2] = new Insert("discordTag", this.discordTag);
+        inserts[2] = new Insert("discordId", this.discordId);
 
         if(TournamentManager.getInstance().getDatabaseAdapter().containsEntry("players", new Key("uuid", this.uuid.toString())))
             TournamentManager.getInstance().getDatabaseAdapter().updateValues("players", new Key("uuid", this.uuid.toString()), inserts);

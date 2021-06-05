@@ -98,7 +98,7 @@ public class TournamentManager {
         this.databaseAdapter.createTable("players",
                 new Row("uuid", RowType.VARCHAR),
                 new Row("customName", RowType.VARCHAR),
-                new Row("discordTag", RowType.VARCHAR));
+                new Row("discordId", RowType.VARCHAR));
     }
 
     private void initSpringFramework() {
