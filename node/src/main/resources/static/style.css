@@ -1,0 +1,20 @@
+:root {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+ol > li {
+    margin-top: 1rem;
+}
+
+input {
+    outline: none;
+    border: none;
+    border-bottom: solid gray 2px;
+}
+
+#reg-form {
+    display: grid;
+    width: auto;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(4, auto);
+}

@@ -51,7 +51,7 @@ public class TournamentAPI {
      * @return If the registration has been successful
      */
 
-    public Player registerPlayer(String ingameName, String discordTag) throws MojangAPIException, AlreadyRegisteredException, UnknownPlayerException, IllegalArgumentException {
+    public Player registerPlayer(String ingameName, String discordId) throws MojangAPIException, AlreadyRegisteredException, UnknownPlayerException, IllegalArgumentException {
         if(!this.isValidUsername(ingameName))
             throw new IllegalArgumentException("Invalid username!");
 
