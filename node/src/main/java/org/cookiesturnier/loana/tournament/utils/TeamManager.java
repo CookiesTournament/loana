@@ -2,6 +2,8 @@ package org.cookiesturnier.loana.tournament.utils;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 import org.cookiesturnier.loana.tournament.api.exceptions.MojangAPIException;
@@ -26,6 +28,7 @@ import java.util.UUID;
  */
 
 @Getter
+@Slf4j
 public class TeamManager {
 
     private final List<Team> registeredTeams;
@@ -39,12 +42,12 @@ public class TeamManager {
         this.mojangAPI = new Mojang().connect();
 
         try {
-            TournamentManager.getInstance().getLogger().log(Level.INFO, "Loading data from database..");
+            log.info("Loading data from database..");
             this.loadPlayersFromDatabase();
             this.loadTeamsFromDatabase();
-            TournamentManager.getInstance().getLogger().log(Level.INFO, "Loading finished. Success.");
+            log.info("Loading finished. Success.");
         } catch (SQLException | JSONException exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while loading the data from the database!", exception);
+            log.error("An error occurred while loading the data from the database!", exception);
         }
     }
 
@@ -55,7 +58,7 @@ public class TeamManager {
         try {
             team.saveToDatabase();
         } catch (IOException | SQLException exception) {
-            TournamentManager.getInstance().getLogger().log(Level.INFO, "An error occurred while saving the team to the database.", exception);
+            log.info("An error occurred while saving the team to the database.", exception);
         }
         this.registeredTeams.add(team);
 
@@ -79,7 +82,7 @@ public class TeamManager {
                     resultSet.getString("discordId"));
 
             this.loadedPlayers.add(player);
-            TournamentManager.getInstance().getLogger().log(Level.INFO, "Player " + player.getUuid() + " has been loaded successfully.");
+            log.info("Player " + player.getUuid() + " has been loaded successfully.");
         }
     }
 
@@ -97,12 +100,12 @@ public class TeamManager {
                 if(player != null)
                     members.add(player);
                 else
-                    TournamentManager.getInstance().getLogger().log(Level.ERROR, "Couldn't find a player with the uuid " + uuid);
+                    log.error("Couldn't find a player with the uuid " + uuid);
             }
 
             final Team team = new Team(UUID.fromString(resultSet.getString("uuid")), resultSet.getString("name"), members);
             this.registeredTeams.add(team);
-            TournamentManager.getInstance().getLogger().log(Level.INFO, "Team " + team.getUuid() + " has been loaded successfully.");
+            log.info("Team " + team.getUuid() + " has been loaded successfully.");
         }
     }
 
@@ -111,7 +114,7 @@ public class TeamManager {
         UUID uuid = UUID.randomUUID();
 
         while (TournamentManager.getInstance().getDatabaseAdapter().containsEntry(table, new Key("uuid", uuid.toString()))) {
-            TournamentManager.getInstance().getLogger().log(Level.DEBUG, "UUID " + uuid + " already in use! Generating a new one..");
+            log.debug("UUID " + uuid + " already in use! Generating a new one..");
             uuid = UUID.randomUUID();
         }
 

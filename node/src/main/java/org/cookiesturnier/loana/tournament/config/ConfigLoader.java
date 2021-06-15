@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 
@@ -17,6 +19,7 @@ import java.io.*;
  */
 
 @Getter
+@Slf4j
 public class ConfigLoader {
 
     private final File configFile;
@@ -25,11 +28,11 @@ public class ConfigLoader {
     public ConfigLoader() {
         this.configFile = new File("config.json");
         try {
-            TournamentManager.getInstance().getLogger().log(Level.DEBUG, "Loading config file");
+            log.debug("Loading config file");
             this.loadConfigFromFile();
-            TournamentManager.getInstance().getLogger().log(Level.INFO, "The config has been loaded successfully");
+            log.info("The config has been loaded successfully");
         } catch (IOException exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while loading the config file.", exception);
+            log.error("An error occurred while loading the config file.", exception);
         }
     }
 
@@ -43,6 +46,7 @@ public class ConfigLoader {
             this.config.setDatabaseName("tournament");
             this.config.setDatabasePort(3306);
             this.config.setStreamKey("abc");
+            this.config.setObsPassword("password");
 
             this.updateConfig();
             return;
@@ -54,9 +58,9 @@ public class ConfigLoader {
     public void updateConfig() throws IOException {
         try(final Writer writer = new FileWriter(this.configFile)) {
             new GsonBuilder().create().toJson(this.config, writer);
-            TournamentManager.getInstance().getLogger().log(Level.DEBUG, "Config file updated");
+            log.debug("Config file updated");
         } catch (Exception exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while saving the config file.", exception);
+            log.error("An error occurred while saving the config file.", exception);
         }
     }
 

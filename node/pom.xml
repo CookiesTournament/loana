@@ -22,6 +22,10 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -89,6 +93,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20210307</version>
+        </dependency>
+        <dependency>
+            <groupId>net.twasi</groupId>
+            <artifactId>obs-websocket-java</artifactId>
+            <version>1.2.0</version> <!-- Last Obs Websocket 4.X.X Compatible Release -->
         </dependency>
     </dependencies>
 
