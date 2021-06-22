@@ -2,12 +2,10 @@ package org.cookiesturnier.loana.tournament.utils;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 import org.cookiesturnier.loana.tournament.api.exceptions.MojangAPIException;
-import org.cookiesturnier.loana.tournament.database.objects.Key;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Key;
 import org.cookiesturnier.loana.tournament.objects.Player;
 import org.cookiesturnier.loana.tournament.objects.Team;
 import org.json.JSONArray;

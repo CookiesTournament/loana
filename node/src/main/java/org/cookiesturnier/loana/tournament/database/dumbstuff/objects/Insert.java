@@ -1,4 +1,4 @@
-package org.cookiesturnier.loana.tournament.database.objects;
+package org.cookiesturnier.loana.tournament.database.dumbstuff.objects;
 
 import lombok.Getter;
 

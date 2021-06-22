@@ -1,10 +1,10 @@
-package org.cookiesturnier.loana.tournament.database;
+package org.cookiesturnier.loana.tournament.database.dumbstuff;
 
 import com.google.common.collect.Lists;
-import org.cookiesturnier.loana.tournament.database.enums.RowType;
-import org.cookiesturnier.loana.tournament.database.objects.Insert;
-import org.cookiesturnier.loana.tournament.database.objects.Key;
-import org.cookiesturnier.loana.tournament.database.objects.Row;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.enums.RowType;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Insert;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Key;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Row;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

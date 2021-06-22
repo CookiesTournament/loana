@@ -1,7 +1,7 @@
-package org.cookiesturnier.loana.tournament.database.objects;
+package org.cookiesturnier.loana.tournament.database.dumbstuff.objects;
 
 import lombok.Getter;
-import org.cookiesturnier.loana.tournament.database.enums.RowType;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.enums.RowType;
 
 /**
  * This file was created by VoxCrafter_LP!

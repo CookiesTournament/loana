@@ -3,10 +3,11 @@ package org.cookiesturnier.loana.tournament.objects;
 import lombok.Getter;
 import lombok.Setter;
 import org.cookiesturnier.loana.tournament.TournamentManager;
-import org.cookiesturnier.loana.tournament.database.objects.Insert;
-import org.cookiesturnier.loana.tournament.database.objects.Key;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Insert;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Key;
 import org.cookiesturnier.loana.tournament.enums.IngameTeamColor;
 
+import javax.persistence.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -22,17 +23,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @Getter @Setter
+@Entity
+@Table(name = "teams")
 public class Team {
 
-    private final UUID uuid;
-    private final String teamName;
-    private final List<Player> members;
+    @Id
+    private UUID uuid;
+    private String teamName;
+
+    @OneToMany
+    private List<Player> members;
+
     private IngameTeamColor ingameTeamColor;
 
     public Team(UUID uuid, String teamName, List<Player> members) {
         this.uuid = uuid;
         this.teamName = teamName;
         this.members = members;
+    }
+
+    public Team() {
     }
 
     public void addPlayer(Player player) {
