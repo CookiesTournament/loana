@@ -73,6 +73,7 @@ public class TeamManager {
         final ResultSet resultSet = TournamentManager.getInstance().getDatabaseAdapter().getResultSet("SELECT * FROM players");
 
         while (resultSet.next()) {
+            System.out.println(resultSet.getString("uuid"));
             final Player player = new Player(
                     UUID.fromString(resultSet.getString("uuid")),
                     resultSet.getString("customName"),

@@ -40,7 +40,7 @@ public class ConfigLoader {
             this.config.setDatabaseHost("localhost");
             this.config.setDatabaseUser("root");
             this.config.setDatabasePassword("root");
-            this.config.setDatabaseName("tournament");
+            this.config.setDatabaseName("cookies");
             this.config.setDatabasePort(3306);
             this.config.setStreamKey("abc");
 
