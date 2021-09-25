@@ -19,5 +19,6 @@ public class Config {
     private int databasePort;
     private String databaseName;
     private String streamKey;
+    private String obsPassword;
 
 }
