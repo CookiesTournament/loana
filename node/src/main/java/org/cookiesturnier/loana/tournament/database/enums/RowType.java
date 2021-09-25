@@ -1,4 +1,4 @@
-package org.cookiesturnier.loana.tournament.database.dumbstuff.enums;
+package org.cookiesturnier.loana.tournament.database.enums;
 
 /**
  * This file was created by VoxCrafter_LP!

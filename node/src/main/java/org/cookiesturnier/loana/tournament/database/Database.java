@@ -1,4 +1,4 @@
-package org.cookiesturnier.loana.tournament.database.dumbstuff;
+package org.cookiesturnier.loana.tournament.database;
 
 import lombok.Getter;
 import org.apache.log4j.Level;

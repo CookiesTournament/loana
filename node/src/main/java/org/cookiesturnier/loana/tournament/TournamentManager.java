@@ -2,14 +2,20 @@ package org.cookiesturnier.loana.tournament;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.cookiesturnier.loana.NodeApplication;
 import org.cookiesturnier.loana.tournament.api.TournamentAPI;
 import org.cookiesturnier.loana.tournament.config.ConfigLoader;
-import org.cookiesturnier.loana.tournament.database.dumbstuff.Database;
-import org.cookiesturnier.loana.tournament.database.dumbstuff.DatabaseAdapter;
-import org.cookiesturnier.loana.tournament.database.dumbstuff.enums.RowType;
-import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Row;
+import org.cookiesturnier.loana.tournament.database.Database;
+import org.cookiesturnier.loana.tournament.database.DatabaseAdapter;
+import org.cookiesturnier.loana.tournament.database.enums.RowType;
+import org.cookiesturnier.loana.tournament.database.objects.Row;
+import org.cookiesturnier.loana.tournament.stream.StreamManager;
 import org.cookiesturnier.loana.tournament.utils.TeamManager;
 import org.springframework.boot.SpringApplication;
 

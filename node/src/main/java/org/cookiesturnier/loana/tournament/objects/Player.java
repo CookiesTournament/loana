@@ -1,12 +1,10 @@
 package org.cookiesturnier.loana.tournament.objects;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.cookiesturnier.loana.tournament.TournamentManager;
-import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Insert;
-import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Key;
+import org.cookiesturnier.loana.tournament.database.objects.Insert;
+import org.cookiesturnier.loana.tournament.database.objects.Key;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 /**
@@ -17,24 +15,16 @@ import java.util.UUID;
  */
 
 @Getter
-@Setter
-@Entity
-@Table(name = "players")
 public class Player {
 
-    @Id
-    private UUID uuid;
-    private String customName;
-    private String discordId;
+    private final UUID uuid;
+    private final String customName;
+    private final String discordId;
 
     public Player(UUID uuid, String customName, String discordId) {
         this.uuid = uuid;
         this.customName = customName;
         this.discordId = discordId;
-    }
-
-    public Player() {
-
     }
 
     //TODO rework
@@ -50,4 +40,5 @@ public class Player {
         else
             TournamentManager.getInstance().getDatabaseAdapter().insertIntoTable("players", inserts);
     }
+
 }
