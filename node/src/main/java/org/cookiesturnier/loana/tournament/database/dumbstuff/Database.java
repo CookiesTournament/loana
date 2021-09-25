@@ -1,8 +1,6 @@
 package org.cookiesturnier.loana.tournament.database.dumbstuff;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 
@@ -18,7 +16,6 @@ import java.sql.SQLException;
  */
 
 @Getter
-@Slf4j
 public class Database {
 
     private final String host;
@@ -42,9 +39,9 @@ public class Database {
     public void connect() {
         try {
             this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true", user, password);
-            log.info("Successfully connected to the database");
+            TournamentManager.getInstance().getLogger().log(Level.INFO, "Successfully connected to the database");
         } catch (SQLException exception) {
-            log.error("An error occurred while connecting to the database", exception);
+            TournamentManager.getInstance().getLogger().log(Level.FATAL, "An error occurred while connecting to the database", exception);
         }
     }
 
@@ -56,7 +53,7 @@ public class Database {
             try {
                 this.connection.close();
             } catch (SQLException exception) {
-                log.error("An error occurred while disconnecting from the database", exception);
+                TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while disconnecting from the database", exception);
             }
         }
     }
