@@ -1,6 +1,7 @@
 package org.cookiesturnier.loana.tournament.api;
 
 import com.google.common.collect.Lists;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 import org.cookiesturnier.loana.tournament.api.exceptions.AlreadyRegisteredException;
@@ -20,6 +21,7 @@ import java.util.UUID;
  * Project: loana
  */
 
+@Log4j
 public class TournamentAPI {
 
     private final TeamManager teamManager;
@@ -66,7 +68,7 @@ public class TournamentAPI {
         try {
             return teamManager.registerPlayer(uuid, ingameName, discordId);
         } catch (Exception exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the player", exception);
+            log.log(Level.ERROR, "An error occurred while registering the player", exception);
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class TournamentAPI {
         try {
             return teamManager.registerTeam(teamName, members);
         } catch (Exception exception) {
-            TournamentManager.getInstance().getLogger().log(Level.ERROR, "An error occurred while registering the team.", exception);
+            log.log(Level.ERROR, "An error occurred while registering the team.", exception);
             return null;
         }
     }

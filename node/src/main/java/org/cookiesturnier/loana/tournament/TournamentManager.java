@@ -2,17 +2,14 @@ package org.cookiesturnier.loana.tournament;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
+import lombok.extern.slf4j.Slf4j;
 import org.cookiesturnier.loana.NodeApplication;
 import org.cookiesturnier.loana.tournament.api.TournamentAPI;
 import org.cookiesturnier.loana.tournament.config.ConfigLoader;
-import org.cookiesturnier.loana.tournament.database.Database;
-import org.cookiesturnier.loana.tournament.database.DatabaseAdapter;
-import org.cookiesturnier.loana.tournament.database.enums.RowType;
-import org.cookiesturnier.loana.tournament.database.objects.Row;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.Database;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.DatabaseAdapter;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.enums.RowType;
+import org.cookiesturnier.loana.tournament.database.dumbstuff.objects.Row;
 import org.cookiesturnier.loana.tournament.utils.TeamManager;
 import org.springframework.boot.SpringApplication;
 
@@ -24,46 +21,45 @@ import org.springframework.boot.SpringApplication;
  */
 
 @Getter
+@Slf4j
 public class TournamentManager {
 
     @Getter
     private static TournamentManager instance;
     private static final String VERSION = "v1.0";
-    private Logger logger;
 
     private ConfigLoader configLoader;
     private Database database;
     private DatabaseAdapter databaseAdapter;
     private final TeamManager teamManager;
+    //private final StreamManager streamManager;
 
     private final TournamentAPI api;
 
     public TournamentManager() {
         instance = this;
-        this.setupLogger();
+        //this.setupLogger();
         this.printHeader();
 
         this.loadConfig();
         this.initDatabase();
 
         this.teamManager = new TeamManager();
+        //this.streamManager = new StreamManager(this.getConfigLoader().getConfig().getObsPassword());
         this.api = new TournamentAPI();
-
         //new Thread(this::initSpringFramework).start();
     }
 
-    private void setupLogger() {
-        this.logger = Logger.getLogger(TournamentManager.class);
-
-        final ConsoleAppender consoleAppender = new ConsoleAppender();
-        consoleAppender.setThreshold(Level.INFO);
-        consoleAppender.setLayout(new PatternLayout("%d [%p|%c|%C{1}] %m%n"));
-        consoleAppender.activateOptions();
-        this.logger.addAppender(consoleAppender);
-    }
+//    private void setupLogger() {
+//        final ConsoleAppender consoleAppender = new ConsoleAppender();
+//        consoleAppender.setThreshold(Level.INFO);
+//        consoleAppender.setLayout(new PatternLayout("%d [%p|%c|%C{1}] %m%n"));
+//        consoleAppender.activateOptions();
+//        log.addAppender(consoleAppender);
+//    }
 
     private void printHeader() {
-        this.logger.log(Level.DEBUG, "Starting management backend..");
+        log.debug("Starting management backend..");
         System.out.println("_________                __   .__                ___________                  .__              \n" +
                 "\\_   ___ \\  ____   ____ |  | _|__| ____   ______ \\__    ___/_ _________  ____ |__| ___________ \n" +
                 "/    \\  \\/ /  _ \\ /  _ \\|  |/ /  |/ __ \\ /  ___/   |    | |  |  \\_  __ \\/    \\|  |/ __ \\_  __ \\\n" +
@@ -80,7 +76,7 @@ public class TournamentManager {
     }
 
     private void initDatabase() {
-        this.logger.log(Level.DEBUG, "Initializing database..");
+        log.debug("Initializing database..");
         this.database = new Database(this.configLoader.getConfig().getDatabaseHost(),
                 this.configLoader.getConfig().getDatabaseUser(),
                 this.configLoader.getConfig().getDatabasePassword(),
