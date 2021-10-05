@@ -59,7 +59,7 @@ public class TournamentManager {
 //    }
 
     private void printHeader() {
-        log.debug("Starting management backend..");
+        System.out.println("Starting management backend..");
         System.out.println("_________                __   .__                ___________                  .__              \n" +
                 "\\_   ___ \\  ____   ____ |  | _|__| ____   ______ \\__    ___/_ _________  ____ |__| ___________ \n" +
                 "/    \\  \\/ /  _ \\ /  _ \\|  |/ /  |/ __ \\ /  ___/   |    | |  |  \\_  __ \\/    \\|  |/ __ \\_  __ \\\n" +
