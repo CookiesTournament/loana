@@ -41,4 +41,12 @@ public class Player {
             TournamentManager.getInstance().getDatabaseAdapter().insertIntoTable("players", inserts);
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "uuid=" + uuid +
+                ", customName='" + customName + '\'' +
+                ", discordId='" + discordId + '\'' +
+                '}';
+    }
 }

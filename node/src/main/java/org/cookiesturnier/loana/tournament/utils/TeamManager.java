@@ -55,6 +55,8 @@ public class TeamManager {
 
         try {
             team.saveToDatabase();
+            log.info("Team \"" + displayName + "\" (" + members.get(0).getCustomName() + ", " +
+                    members.get(1).getCustomName() + ") has registered.");
         } catch (IOException | SQLException exception) {
             log.info("An error occurred while saving the team to the database.", exception);
         }

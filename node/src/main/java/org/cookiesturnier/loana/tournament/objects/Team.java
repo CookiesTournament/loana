@@ -61,5 +61,4 @@ public class Team {
         else
             TournamentManager.getInstance().getDatabaseAdapter().insertIntoTable("teams", inserts);
     }
-
 }
