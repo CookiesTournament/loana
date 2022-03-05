@@ -19,8 +19,6 @@ public class ApiHandler {
     public RedirectView root(@RequestParam(value = "teamName", required = true) String teamName, @RequestParam(value = "player1", required = true) String player1, @RequestParam(value = "player2", required = true) String player2) {
         TournamentAPI tournamentAPI = new TournamentAPI();
 
-        String string = "Lezurex_";
-
         try {
             Player playerObj1 = tournamentAPI.registerPlayer(player1, "abc");
             Player playerObj2 = tournamentAPI.registerPlayer(player2, "abc");

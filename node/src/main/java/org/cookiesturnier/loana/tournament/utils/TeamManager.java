@@ -2,9 +2,7 @@ package org.cookiesturnier.loana.tournament.utils;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Level;
 import org.cookiesturnier.loana.tournament.TournamentManager;
 import org.cookiesturnier.loana.tournament.api.exceptions.MojangAPIException;
 import org.cookiesturnier.loana.tournament.database.objects.Key;
@@ -123,8 +121,8 @@ public class TeamManager {
     }
 
     public UUID getUUIDFromMinecraftName(String name) throws MojangAPIException {
-        if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN)
-            throw new MojangAPIException("The Mojang API is not available right now.");
+//        if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN)
+//            throw new MojangAPIException("The Mojang API is not available right now.");
 
         return this.formatFromInput(this.mojangAPI.getUUIDOfUsername(name));
     }
