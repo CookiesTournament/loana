@@ -67,8 +67,8 @@ public class TeamManager {
 
     public Player registerPlayer(UUID uuid, String customName, String discordId) {
         final Player player = new Player(uuid, customName, discordId);
-//        player.saveToDatabase();
-//        this.loadedPlayers.add(player);
+        player.saveToDatabase();
+        this.loadedPlayers.add(player);
         return player;
     }
 
@@ -123,9 +123,6 @@ public class TeamManager {
     }
 
     public UUID getUUIDFromMinecraftName(String name) throws MojangAPIException {
-//        if(this.mojangAPI.getStatus(Mojang.ServiceType.API_MOJANG_COM) != Mojang.ServiceStatus.GREEN)
-//            throw new MojangAPIException("The Mojang API is not available right now.");
-
         return this.formatFromInput(this.mojangAPI.getUUIDOfUsername(name));
     }
 
